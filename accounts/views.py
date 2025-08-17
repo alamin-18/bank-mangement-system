@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView,View
 from .forms import RegistrationForm,UserUpdateForm
 from django.contrib.auth import login,logout
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView
 
 
 class UserRegistationsForms(FormView):
@@ -38,3 +38,7 @@ class UserLoginView(LoginView):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+class PassChangeView(PasswordChangeView):
+    template_name = 'accounts/password_change_form.html'
+    success_url = reverse_lazy('home')
