@@ -10,7 +10,6 @@ class Transactions(models.Model):
     balance_after_transactions = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     transaction_type = models.IntegerField(choices=TRANSACTION_TYPE, null = True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    
     loan_approve = models.BooleanField(default=False)
     
     class Meta:

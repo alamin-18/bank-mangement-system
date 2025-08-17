@@ -1,0 +1,29 @@
+<div style="max-width:600px; margin:30px auto; padding:25px; border:1px solid #e0e0e0; border-radius:12px; font-family:Arial, sans-serif; background:#f9f9f9;">
+  <h2 style="color:#2e7d32; text-align:center;">✅ Transaction Successful</h2>
+  
+  <p style="font-size:16px; color:#333; line-height:1.5;">
+    Dear Customer {{user.user.first_name}} {{user.user.last_name}},
+  </p>
+
+  <p style="font-size:16px; color:#333; line-height:1.5;">
+    We are pleased to inform you that your money has been successfully transferred to 
+    <strong>{{to_user.user.first_name}} {{to_user.user.last_name}}</strong>.
+  </p>
+
+  <div style="background:#fff; border:1px solid #ddd; border-radius:10px; padding:15px; margin:20px 0;">
+    <p style="margin:5px 0; font-size:15px;"><strong>Recipient:</strong> {{to_user.user.first_name}} {{to_user.user.last_name}}</p>
+    <p style="margin:5px 0; font-size:15px;"><strong>Amount:</strong> {{amount}}</p>
+    <p style="margin:5px 0; font-size:15px;"><strong>Date & Time:</strong> {{date_time}}</p>
+    
+  </div>
+
+  <p style="font-size:15px; color:#555; line-height:1.5;">
+    You can view the details of this transaction anytime in your account history.  
+    Thank you for trusting our service.  
+  </p>
+
+  <p style="font-size:15px; color:#555; line-height:1.5;">
+    Warm Regards,<br>
+    <strong>Babar Bank Team</strong>
+  </p>
+</div>

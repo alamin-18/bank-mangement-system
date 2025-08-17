@@ -12,7 +12,7 @@ from django.db.models import Sum
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template.loader import render_to_string
 from transactions.forms import DepositForm,WithdrawalFrom,LoabRequestForm,TransferMoney
-from .models import Transactions,Bankrupt
+from .models import Transactions
 from django.http import HttpResponse
 from accounts.models import UserBankAccount
 # Create your views here.
@@ -106,6 +106,32 @@ class TransferMoneyView(TransactionCreateMixin):
         found_account.save(
             update_fields=['balance']
         )
+        main_subject = "Transfer Money Successfully!!!"
+        message = render_to_string('transactions/sender_email.html',{
+            'user':account,
+            'to_user':found_account,
+            'amount':amount,
+            'date_time':datetime.now()
+            
+        })
+        to_email = account.user.email
+        send_email = EmailMultiAlternatives(main_subject,'',to=[to_email])
+        send_email.attach_alternative(message,"text/html")
+        send_email.send()
+        
+        main_subject = f"You have recived Money to {account.user.first_name} {account.user.last_name}!!!"
+        message = render_to_string('transactions/reciver_email.html',{
+            'user':account,
+            'to_user':found_account,
+            'amount':amount,
+            'date_time':datetime.now()
+            
+        })
+        to_email = found_account.user.email
+        send_email = EmailMultiAlternatives(main_subject,'',to=[to_email])
+        send_email.attach_alternative(message,"text/html")
+        send_email.send()
+        # ---------------- Success Message ----------------
         messages.success(self.request,
                       f"${amount} successfully transferred"
                       f"from {account.account_no} to {account_no} 🎉"   
